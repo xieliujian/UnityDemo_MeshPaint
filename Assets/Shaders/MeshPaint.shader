@@ -1,5 +1,5 @@
 ﻿
-Shader "MeshPaint/Terrain"
+Shader "MeshPaint/TerrainDiffuse"
 {
 	Properties 
 	{

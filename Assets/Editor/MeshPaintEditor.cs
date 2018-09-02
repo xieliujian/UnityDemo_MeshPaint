@@ -113,10 +113,10 @@ public class MeshPaintEditor : Editor
             Vector2 uv = rayhit.textureCoord;
             int centerx = Mathf.FloorToInt(uv.x * blendtex.width);
             int centery = Mathf.FloorToInt(uv.y * blendtex.height);
-            int x = Mathf.Clamp(centerx - brushsize / 2, 0, blendtex.width);
-            int y = Mathf.Clamp(centery - brushsize / 2, 0, blendtex.height);
-            int width = brushsize;
-            int height = brushsize;
+            int x = Mathf.Clamp(centerx - brushsize / 2, 0, blendtex.width - 1);
+            int y = Mathf.Clamp(centery - brushsize / 2, 0, blendtex.height - 1);
+            int width = Mathf.Clamp(centerx + brushsize / 2, 0, blendtex.width) - x;
+            int height = Mathf.Clamp(centery + brushsize / 2, 0, blendtex.height) - y;
 
             Color[] terrainpixs = blendtex.GetPixels(x, y, width, height, 0);
 
@@ -138,6 +138,9 @@ public class MeshPaintEditor : Editor
                 for (int i = 0; i < brushsize; i++)
                 {
                     int index = j * brushsize + i;
+
+                    if (index >= terrainpixs.Length)
+                        continue;
 
                     float brushalpha = brushalphas[index];
                     if (mSelTexIdx == (int)EBrushSplat.EBS_Splat1)
