@@ -212,6 +212,9 @@ public class MeshPaintEditor : Editor
     private bool CheckHasMask()
     {
         Transform select = Selection.activeTransform;
+        if (select == null)
+            return false;
+
         if (select.gameObject == null)
             return false;
 
